@@ -1,0 +1,9 @@
+.studentLink {
+  display: block;
+  transform: translateX(80px);
+}
+
+.assignmentLink {
+  display: block;
+  transform: translateX(80px);
+}
