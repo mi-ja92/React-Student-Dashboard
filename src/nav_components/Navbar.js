@@ -8,10 +8,10 @@ import {
   CDBSidebarFooter,
 } from "cdbreact";
 
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 const Navbar = () => {
   return (
-    <CDBSidebar Open>
+    <CDBSidebar Open maxWidth="350px">
       <CDBSidebarHeader prefix={<i className="fa fa-bars" />}>
         Student Dashboard
       </CDBSidebarHeader>
@@ -28,11 +28,12 @@ const Navbar = () => {
               Assignments
             </CDBSidebarMenuItem>
           </Link>
+          <Outlet />
         </CDBSidebarMenu>
       </CDBSidebarContent>
 
       <CDBSidebarFooter style={{ textAlign: "center" }}>
-        <div className="sidebar-btn-wrapper" style={{ padding: "200px 1px" }}>
+        <div className="sidebar-btn-wrapper" style={{ padding: "300px 1px" }}>
           Sidebar Footer
         </div>
       </CDBSidebarFooter>

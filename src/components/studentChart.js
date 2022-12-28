@@ -69,6 +69,7 @@ class StudentChart extends React.Component {
           />
           Difficulty
         </label>
+        <br />
         <label className="enjoy">
           <input
             className="orange-input"
