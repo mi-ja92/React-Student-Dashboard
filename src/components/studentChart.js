@@ -104,21 +104,21 @@ class StudentChart extends React.Component {
           <VictoryGroup offset={10} colorScale={"qualitative"}>
             {this.state.difficulty ? (
               <VictoryBar
-                style={{ data: { fill: "#4f8bc9" } }}
-                barWidth={7}
+                style={{ data: { fill: "#90A4AE" } }}
+                barWidth={8}
                 data={this.state.studentData}
                 x={"assignment"}
-                y={"difficultyRating"}
+                y={"difficulty"}
               />
             ) : null}
 
             {this.state.enjoyment ? (
               <VictoryBar
-                style={{ data: { fill: "#ffb212" } }}
-                barWidth={7}
+                style={{ data: { fill: "#455A64" } }}
+                barWidth={8}
                 data={this.state.studentData}
                 x={"assignment"}
-                y={"enjoymentRating"}
+                y={"fun"}
               />
             ) : null}
           </VictoryGroup>
