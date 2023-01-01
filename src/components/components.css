@@ -2,3 +2,14 @@
   padding-left: 50px;
   padding-top: 50px;
 }
+
+.mainAssignment {
+  padding-left: 50px;
+  padding-top: 50px;
+}
+
+.chartAll {
+  padding-left: 10;
+  height: 800px;
+  transform: translateY(-120px);
+}

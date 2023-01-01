@@ -1,202 +1,123 @@
 import React from "react";
-import data from "../components/data/data.json";
+import data from "./data/data.json";
 import {
-  VictoryChart,
   VictoryBar,
-  VictoryGroup,
+  VictoryChart,
   VictoryAxis,
   VictoryTheme,
+  VictoryGroup,
+  VictoryLegend,
+  VictoryLabel,
   VictoryContainer,
-  VictoryLine,
+  VictoryTooltip,
 } from "victory";
+import "./components.css";
 
-let newData = [];
-data.map((item) => {
-  return newData.push(item);
-});
-class ChartsAll extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      dataAll: [],
-      difficulty: true,
-      fun: true,
-      changeGraph: true,
-    };
-
-    this.calculateAverage = this.calculateAverage.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  calculateAverage() {
-    const assignments = newData.map((assignment) => assignment.assignment);
-    const assignmentsSingle = Array.from(new Set(assignments));
-    assignmentsSingle.forEach((assign) => {
-      let difficultySeperate =
-        newData
-          .filter((element) => element.assignment === assign)
-          .reduce((prev, curr) => prev + parseInt(curr.difficultyRating), 0) /
-        10;
-      let enjoySeperate =
-        newData
-          .filter((element) => element.assignment === assign)
-          .reduce((prev, curr) => prev + parseInt(curr.enjoymentRating), 0) /
-        10;
-
-      this.setState((prevState) => {
-        const newAverageData = [...prevState.averageData];
-        newAverageData.push({
-          assignment: `${assign}`,
-          difficultyRating: difficultySeperate,
-          enjoymentRating: enjoySeperate,
-        });
-        const newState = { ...prevState, averageData: newAverageData };
-        return newState;
-      });
-    });
-  }
-
-  handleChange(event) {
-    const { name, value, type, checked } = event.target;
-    type === "checkbox"
-      ? this.setState({ [name]: checked })
-      : this.setState({ [name]: value });
-  }
-
-  handleClick() {
-    this.setState((prevState) => {
-      return {
-        changeGraph: !prevState.changeGraph,
+function ChartsAll() {
+  const assignmentsData = Object.values(
+    data.reduce((acc, { assignment, difficulty, fun }) => {
+      acc[assignment] = acc[assignment] || {
+        assignment,
+        difficulty: 0,
+        fun: 0,
+        students: 0,
       };
-    });
-  }
+      acc[assignment].difficulty += difficulty;
+      acc[assignment].fun += fun;
+      acc[assignment].students++;
+      return acc;
+    }, [])
+  );
 
-  componentDidMount() {
-    this.calculateAverage();
-  }
+  const averageData = assignmentsData.map(
+    ({ assignment, students, difficulty, fun }) => {
+      return {
+        assignment,
+        students,
+        difficulty: difficulty / students,
+        fun: fun / students,
+      };
+    }
+  );
 
-  render() {
-    return (
-      <div>
-        <button onClick={this.handleClick}>Change Chart Type</button>
-        <br />
-        <label className="diff">
-          <input
-            className="blue-input"
-            type="checkbox"
-            name="difficulty"
-            onChange={this.handleChange}
-            checked={this.state.difficulty}
+  const chartData = averageData.map((values) => ({
+    assignment: values.assignment,
+    difficulty: values.difficulty,
+    fun: values.fun,
+    label: `Assignment ${values.assignment}, 
+         Difficulty: ${values.difficulty.toFixed(1)},
+         Fun: ${values.fun.toFixed(1)}`,
+  }));
+
+  return (
+    <div className="chartAll">
+      <VictoryChart
+        domainPadding={{ x: 15 }}
+        domain={{ x: [0, 56], y: [0.0, 5.0] }}
+        theme={VictoryTheme.material}
+        width={1200}
+        height={400}
+        containerComponent={<VictoryContainer responsive="false" />}
+      >
+        <VictoryLegend
+          x={550}
+          y={24}
+          itemsPerRow={2}
+          orientation="horizontal"
+          data={[
+            { name: "Fun", symbol: { fill: "#90A4AE", type: "square" } },
+            { name: "Difficulty", symbol: { fill: "#455A64", type: "square" } },
+          ]}
+        />
+        <VictoryLabel
+          x={10}
+          y={400}
+          text="Assignment"
+          style={[{ fill: "black", fontSize: 20 }]}
+        />
+
+        <VictoryAxis
+          style={{
+            ticks: { stroke: "grey", size: 5 },
+            tickLabels: {
+              angle: 60,
+              fontSize: 10,
+              padding: 2,
+              textAnchor: "start",
+            },
+          }}
+        />
+        <VictoryLabel
+          x={10}
+          y={80}
+          angle={-90}
+          text="Rating"
+          style={[{ fill: "black", fontSize: 20 }]}
+        />
+
+        <VictoryAxis dependentAxis />
+
+        <VictoryGroup offset={10} colorScale={["red", "yellow"]}>
+          <VictoryBar
+            labelComponent={<VictoryTooltip />}
+            style={{ data: { fill: "#90A4AE" } }}
+            data={chartData}
+            x="assignment"
+            y="fun"
+            barWidth={8}
           />
-          Difficulty
-        </label>
-        <label className="enjoy">
-          <input
-            className="orange-input"
-            type="checkbox"
-            name="enjoyment"
-            onChange={this.handleChange}
-            checked={this.state.enjoyment}
+          <VictoryBar
+            labelComponent={<VictoryTooltip />}
+            style={{ data: { fill: "#455A64" } }}
+            data={chartData}
+            x="assignment"
+            y="difficulty"
+            barWidth={8}
           />
-          Enjoyment
-        </label>
-
-        {this.state.changeGraph ? (
-          <VictoryChart
-            domainPadding={{ x: 15 }}
-            domain={{ x: [0, 56], y: [0.0, 5.0] }}
-            theme={VictoryTheme.material}
-            width={1200}
-            height={300}
-            containerComponent={<VictoryContainer responsive={false} />}
-          >
-            <VictoryAxis
-              style={{
-                ticks: { stroke: "grey", size: 5 },
-                tickLabels: {
-                  angle: 45,
-                  fontSize: 12,
-                  padding: 5,
-                  textAnchor: "begin",
-                },
-              }}
-            />
-            <VictoryAxis dependentAxis />
-            <VictoryGroup offset={10} colorScale={"qualitative"}>
-              {this.state.difficulty ? (
-                <VictoryBar
-                  style={{ data: { fill: "#4f8bc9" } }}
-                  barWidth={7}
-                  data={this.state.averageData}
-                  x={"assignment"}
-                  y={"difficultyRating"}
-                />
-              ) : null}
-
-              {this.state.enjoyment ? (
-                <VictoryBar
-                  style={{ data: { fill: "#ffb212" } }}
-                  barWidth={7}
-                  data={this.state.averageData}
-                  x={"assignment"}
-                  y={"enjoymentRating"}
-                />
-              ) : null}
-            </VictoryGroup>
-          </VictoryChart>
-        ) : null}
-
-        {this.state.changeGraph ? null : (
-          <VictoryChart
-            domainPadding={{ x: 15 }}
-            domain={{ x: [0, 56], y: [0.0, 5.0] }}
-            theme={VictoryTheme.material}
-            width={1200}
-            height={300}
-            containerComponent={<VictoryContainer responsive={false} />}
-          >
-            {this.state.difficulty ? (
-              <VictoryLine
-                style={{
-                  data: { stroke: "#4f8bc9" },
-                  parent: { border: "1px solid #ccc" },
-                }}
-                data={this.state.averageData}
-                x="assignment"
-                y="difficultyRating"
-              />
-            ) : null}
-
-            {this.state.enjoyment ? (
-              <VictoryLine
-                style={{
-                  data: { stroke: "#ffb212" },
-                  parent: { border: "1px solid #ccc" },
-                }}
-                data={this.state.averageData}
-                x="assignment"
-                y="enjoymentRating"
-              />
-            ) : null}
-
-            <VictoryAxis
-              style={{
-                ticks: { stroke: "grey", size: 5 },
-                tickLabels: {
-                  angle: 45,
-                  fontSize: 12,
-                  padding: 5,
-                  textAnchor: "begin",
-                },
-              }}
-            />
-            <VictoryAxis dependentAxis />
-          </VictoryChart>
-        )}
-      </div>
-    );
-  }
+        </VictoryGroup>
+      </VictoryChart>
+    </div>
+  );
 }
 
 export default ChartsAll;

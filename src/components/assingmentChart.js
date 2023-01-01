@@ -15,17 +15,17 @@ data.map((item) => {
   return newData.push(item);
 });
 
-class StudentChart extends React.Component {
+class AssignmentChart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      studentData: [],
+      assignmentData: [],
       difficulty: true,
       enjoyment: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.filterStudents = this.filterStudents.bind(this);
+    this.filterAssignments = this.filterAssignments.bind(this);
   }
 
   handleChange(event) {
@@ -35,25 +35,25 @@ class StudentChart extends React.Component {
       : this.setState({ [name]: value });
   }
 
-  filterStudents() {
-    let value = this.props.student;
+  filterAssignments() {
+    let value = this.props.assignment;
     let filteredItems = newData.filter((item) => {
-      return item.name === value;
+      return item.assignment === value;
     });
 
     this.setState((prevState) => {
-      let newState = { ...prevState, studentData: filteredItems };
+      let newState = { ...prevState, assignmentData: filteredItems };
       return newState;
     });
   }
 
   componentDidMount() {
-    this.filterStudents();
+    this.filterAssignments();
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.student !== prevProps.student) {
-      this.filterStudents(this.props.student);
+    if (this.props.assignment !== prevProps.assignment) {
+      this.filterAssignments(this.props.assignment);
     }
   }
 
@@ -83,8 +83,9 @@ class StudentChart extends React.Component {
         </label>
 
         <VictoryChart
-          domainPadding={{ x: 15 }}
-          domain={{ x: [0, 56], y: [0.0, 5.0] }}
+          maxDomain={{ x: 11 }}
+          domainPadding={{ x: 0.8 }}
+          domain={{ x: [0.8, 56], y: [0.0, 5.0] }}
           theme={VictoryTheme.material}
           width={1200}
           height={300}
@@ -92,25 +93,31 @@ class StudentChart extends React.Component {
         >
           <VictoryAxis
             style={{
-              ticks: { stroke: "grey", size: 5 },
+              ticks: { size: 0 },
               tickLabels: {
                 angle: 45,
                 fontSize: 12,
-                padding: 5,
-                textAnchor: "begin",
+                padding: 10,
+                textAnchor: "start",
+                transform: "skewX(5)",
               },
             }}
           />
 
           <VictoryAxis dependentAxis />
-          <VictoryGroup offset={10} colorScale={"qualitative"}>
+          <VictoryGroup
+            domainPadding={{ x: 10 }}
+            offset={50}
+            colorScale={"qualitative"}
+          >
             {this.state.difficulty ? (
               <VictoryBar
+                alignment="start"
                 labels={({ datum }) => {
                   if (datum.labels) {
                     let label = "";
-                    datum.labels.forEach((name) => {
-                      let labelItem = `${name.name}: ${name.difficulty} \n`;
+                    datum.labels.forEach((item) => {
+                      let labelItem = `${item.name}: ${item.difficulty} \n`;
                       label += labelItem;
                     });
                   }
@@ -118,15 +125,17 @@ class StudentChart extends React.Component {
                 }}
                 labelComponent={<VictoryTooltip />}
                 style={{ data: { fill: "#90A4AE" } }}
-                barWidth={8}
-                data={this.state.studentData}
-                x={"assignment"}
+                barWidth={50}
+                data={this.state.assignmentData}
+                x={"name"}
                 y={"difficulty"}
+                barRatio={0.1}
               />
             ) : null}
 
             {this.state.enjoyment ? (
               <VictoryBar
+                alignment="start"
                 labels={({ datum }) => {
                   if (datum.labels) {
                     let label = "";
@@ -138,11 +147,12 @@ class StudentChart extends React.Component {
                   return `Fun Rating:${datum.fun}`;
                 }}
                 style={{ data: { fill: "#455A64" } }}
-                barWidth={8}
-                data={this.state.studentData}
-                x={"assignment"}
+                barWidth={50}
+                data={this.state.assignmentData}
+                x={"name"}
                 y={"fun"}
-                labelComponent={<VictoryTooltip />}
+                barRatio={0.1}
+                labelComponent={<VictoryTooltip center />}
               />
             ) : null}
           </VictoryGroup>
@@ -152,4 +162,4 @@ class StudentChart extends React.Component {
   }
 }
 
-export default StudentChart;
+export default AssignmentChart;

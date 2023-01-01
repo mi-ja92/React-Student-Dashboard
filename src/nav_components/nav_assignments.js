@@ -1,6 +1,6 @@
 import React from "react";
 import data from "../components/data/data.json";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import "./nav.css";
 import {
   CDBSidebar,
@@ -23,18 +23,18 @@ function AssignmentsNav() {
   );
 
   return (
-    <>
+    <div className="container">
       <CDBSidebar Open maxWidth="350px">
         <CDBSidebarHeader prefix={<i className="fa fa-bars" />}>
           Student Dashboard
         </CDBSidebarHeader>
         <CDBSidebarContent>
-          <CDBSidebarMenu>
+          <CDBSidebarMenu className="container">
             <Link to="/">
               <CDBSidebarMenuItem icon="th-large">Dashboard</CDBSidebarMenuItem>
             </Link>
 
-            <Link to="/Students">
+            <Link to="/Students/Evelyn">
               <CDBSidebarMenuItem icon="sticky-note">
                 Students
               </CDBSidebarMenuItem>
@@ -59,7 +59,8 @@ function AssignmentsNav() {
           </div>
         </CDBSidebarFooter>
       </CDBSidebar>
-    </>
+      <Outlet />
+    </div>
   );
 }
 

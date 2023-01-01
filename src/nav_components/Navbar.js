@@ -7,6 +7,7 @@ import {
   CDBSidebarMenuItem,
   CDBSidebarFooter,
 } from "cdbreact";
+import "./nav.css";
 
 import { Link, Outlet } from "react-router-dom";
 const Navbar = () => {
@@ -16,19 +17,18 @@ const Navbar = () => {
         Student Dashboard
       </CDBSidebarHeader>
       <CDBSidebarContent>
-        <CDBSidebarMenu>
+        <CDBSidebarMenu className="container">
           <Link to="/">
             <CDBSidebarMenuItem icon="th-large">Dashboard</CDBSidebarMenuItem>
           </Link>
-          <Link to="/Students">
+          <Link to="/Students/Evelyn">
             <CDBSidebarMenuItem icon="sticky-note">Students</CDBSidebarMenuItem>
           </Link>
-          <Link to="/Assignments">
+          <Link to="/Assignments/SCRUM">
             <CDBSidebarMenuItem icon="sticky-note">
               Assignments
             </CDBSidebarMenuItem>
           </Link>
-          <Outlet />
         </CDBSidebarMenu>
       </CDBSidebarContent>
 
@@ -37,6 +37,7 @@ const Navbar = () => {
           Sidebar Footer
         </div>
       </CDBSidebarFooter>
+      <Outlet />
     </CDBSidebar>
   );
 };

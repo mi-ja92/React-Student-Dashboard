@@ -33,7 +33,7 @@ function StudentsNav() {
             <Link to="/">
               <CDBSidebarMenuItem icon="th-large">Dashboard</CDBSidebarMenuItem>
             </Link>
-            <Link to="/Assignments">
+            <Link to="/Assignments/SCRUM">
               <CDBSidebarMenuItem icon="sticky-note">
                 Assignments
               </CDBSidebarMenuItem>

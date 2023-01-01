@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
-import AssignmentChart from "./studentChart";
+import AssignmentChart from "./assingmentChart";
+import "./components.css";
 
 export default function Assignment() {
   let params = useParams();
   return (
-    <main>
+    <main className="mainAssignment">
       <h2>{params.AssignmentId}</h2>
-      <AssignmentChart student={params.AssignmentId} />
+      <AssignmentChart assignment={params.AssignmentId} />
     </main>
   );
 }
