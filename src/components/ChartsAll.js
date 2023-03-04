@@ -15,17 +15,17 @@ import "./components.css";
 
 function ChartsAll() {
   const assignmentsData = Object.values(
-    data.reduce((acc, { assignment, difficulty, fun }) => {
-      acc[assignment] = acc[assignment] || {
+    data.reduce((accumulator, { assignment, difficulty, fun }) => {
+      accumulator[assignment] = accumulator[assignment] || {
         assignment,
         difficulty: 0,
         fun: 0,
         students: 0,
       };
-      acc[assignment].difficulty += difficulty;
-      acc[assignment].fun += fun;
-      acc[assignment].students++;
-      return acc;
+      accumulator[assignment].difficulty += difficulty;
+      accumulator[assignment].fun += fun;
+      accumulator[assignment].students++;
+      return accumulator;
     }, [])
   );
 
@@ -49,24 +49,73 @@ function ChartsAll() {
          Fun: ${values.fun.toFixed(1)}`,
   }));
 
+
   return (
     <div className="chartAll">
+
       <VictoryChart
         domainPadding={{ x: 15 }}
         domain={{ x: [0, 56], y: [0.0, 5.0] }}
         theme={VictoryTheme.material}
         width={1200}
         height={400}
+        events={[
+          {
+            childName: "legend",
+            target: "labels",
+            eventHandlers: {
+              onMouseOver: (e, props) => {
+                return [
+                  {
+                    target: "data",
+                    mutation: () => {
+                      return { style: { fill: "orange" } };
+                    },
+                  },
+                  {
+                    childName: `bar${props.datum.id}`,
+                    target: "data",
+                    eventKey: "all",
+                    mutation: () => {
+                      return { style: { fill: "orange" } };
+                    },
+                  },
+                ];
+              },
+              onMouseOut: (e, props) => {
+                return [
+                  {
+                    target: "data",
+                    mutation: () => null,
+                  },
+                  {
+                    childName: `bar${props.datum.id}`,
+                    target: "data",
+                    eventKey: "all",
+                    mutation: () => {
+                      return null;
+                    },
+                  },
+                ];
+              },
+            },
+          },
+        ]}
         containerComponent={<VictoryContainer responsive="false" />}
       >
         <VictoryLegend
+          name="legend"
           x={550}
           y={24}
           itemsPerRow={2}
           orientation="horizontal"
           data={[
-            { name: "Fun", symbol: { fill: "#90A4AE", type: "square" } },
-            { name: "Difficulty", symbol: { fill: "#455A64", type: "square" } },
+            { id: 1, name: "Fun", symbol: { fill: "#90A4AE", type: "square" } },
+            {
+              id: 2,
+              name: "Difficulty",
+              symbol: { fill: "#455A64", type: "square" },
+            },
           ]}
         />
         <VictoryLabel
@@ -97,8 +146,10 @@ function ChartsAll() {
 
         <VictoryAxis dependentAxis />
 
-        <VictoryGroup offset={10} colorScale={["red", "yellow"]}>
+        <VictoryGroup offset={10} >
           <VictoryBar
+            id={1}
+            name={"bar1"}
             labelComponent={<VictoryTooltip />}
             style={{ data: { fill: "#90A4AE" } }}
             data={chartData}
@@ -107,6 +158,8 @@ function ChartsAll() {
             barWidth={8}
           />
           <VictoryBar
+            id={2}
+            name={"bar2"}
             labelComponent={<VictoryTooltip />}
             style={{ data: { fill: "#455A64" } }}
             data={chartData}
