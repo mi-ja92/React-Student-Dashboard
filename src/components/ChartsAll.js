@@ -49,10 +49,8 @@ function ChartsAll() {
          Fun: ${values.fun.toFixed(1)}`,
   }));
 
-
   return (
     <div className="chartAll">
-
       <VictoryChart
         domainPadding={{ x: 15 }}
         domain={{ x: [0, 56], y: [0.0, 5.0] }}
@@ -73,7 +71,7 @@ function ChartsAll() {
                     },
                   },
                   {
-                    childName: `bar${props.datum.id}`,
+                    childName: ["bar1", "bar2"],
                     target: "data",
                     eventKey: "all",
                     mutation: () => {
@@ -89,7 +87,7 @@ function ChartsAll() {
                     mutation: () => null,
                   },
                   {
-                    childName: `bar${props.datum.id}`,
+                    childName: ["bar1", "bar2"],
                     target: "data",
                     eventKey: "all",
                     mutation: () => {
@@ -146,7 +144,7 @@ function ChartsAll() {
 
         <VictoryAxis dependentAxis />
 
-        <VictoryGroup offset={10} >
+        <VictoryGroup offset={10}>
           <VictoryBar
             id={1}
             name={"bar1"}
