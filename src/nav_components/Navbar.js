@@ -59,15 +59,15 @@ const Navbar = () => {
       <CDBSidebarFooter style={{ textAlign: "center" }}>
         <div className="sidebar-btn-wrapper" style={{ padding: "300px 1px" }}>
           <a href="http://instagram.com">
-            <Instagram className="smbtn" />
+            <Instagram className="smbtn" /> Instagram
           </a>
           <br />
           <a href="http://github.com/mi-ja92">
-            <Github className="smbtn" />
+            <Github className="smbtn" /> Github
           </a>
           <br />
           <a href="http://facebook.com">
-            <Facebook className="smbtn" />
+            <Facebook className="smbtn" /> Facebook
           </a>
           <br />
         </div>

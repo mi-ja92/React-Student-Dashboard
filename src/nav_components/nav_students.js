@@ -7,9 +7,17 @@ import {
   CDBSidebarContent,
   CDBSidebarHeader,
   CDBSidebarMenu,
-  CDBSidebarMenuItem,
   CDBSidebarFooter,
 } from "cdbreact";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  Instagram,
+  Github,
+  Facebook,
+  Person,
+  Collection,
+  Clipboard2Data,
+} from "react-bootstrap-icons";
 
 function StudentsNav() {
   let studentData = [];
@@ -23,22 +31,41 @@ function StudentsNav() {
   );
 
   return (
-    <div className="container">
+    <div className="container-2">
       <CDBSidebar Open maxWidth="350px">
         <CDBSidebarHeader prefix={<i className="fa fa-bars" />}>
           Student Dashboard
         </CDBSidebarHeader>
         <CDBSidebarContent>
           <CDBSidebarMenu className="container">
-            <Link to="/">
-              <CDBSidebarMenuItem icon="th-large">Dashboard</CDBSidebarMenuItem>
-            </Link>
-            <Link to="/Assignments/SCRUM">
-              <CDBSidebarMenuItem icon="sticky-note">
-                Assignments
-              </CDBSidebarMenuItem>
-            </Link>
-            <CDBSidebarMenuItem icon="sticky-note">Students</CDBSidebarMenuItem>
+            <div>
+              {" "}
+              <Link className="gupicss" to="/">
+                {" "}
+                <Clipboard2Data className="sidebarbtn" />
+                <p>Dashboard</p>{" "}
+              </Link>{" "}
+            </div>
+
+            <br />
+
+            <div>
+              <Link className="gupicss" to="/Assignments/SCRUM">
+                <Collection className="sidebarbtn" />
+                <p>Assignments</p>{" "}
+              </Link>
+            </div>
+
+            <br />
+
+            <div>
+              <Link className="gupicss" to="/Students/Evelyn">
+                {" "}
+                <Person className="sidebarbtn" />
+                <p>Students</p>{" "}
+              </Link>
+            </div>
+
             {singleStudent.map((student) => (
               <Link
                 className="studentLink"
@@ -51,8 +78,19 @@ function StudentsNav() {
           </CDBSidebarMenu>
         </CDBSidebarContent>
         <CDBSidebarFooter style={{ textAlign: "center" }}>
-          <div className="sidebar-btn-wrapper" style={{ padding: "200px 5px" }}>
-            Sidebar Footer
+          <div className="sidebar-btn-wrapper" style={{ padding: "300px 1px" }}>
+            <a href="http://instagram.com">
+              <Instagram className="smbtn" /> Instagram
+            </a>
+            <br />
+            <a href="http://github.com/mi-ja92">
+              <Github className="smbtn" /> Github
+            </a>
+            <br />
+            <a href="http://facebook.com">
+              <Facebook className="smbtn" /> Facebook
+            </a>
+            <br />
           </div>
         </CDBSidebarFooter>
       </CDBSidebar>
