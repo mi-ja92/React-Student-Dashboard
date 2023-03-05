@@ -44,11 +44,11 @@ function ChartsAll() {
     assignment: values.assignment,
     difficulty: values.difficulty,
     fun: values.fun,
-    label: `Assignment ${values.assignment}, 
-         Difficulty: ${values.difficulty.toFixed(1)},
-         Fun: ${values.fun.toFixed(1)}`,
+    // label: `Assignment ${values.assignment},
+    //      Difficulty: ${values.difficulty.toFixed(1)},
+    //      Fun: ${values.fun.toFixed(1)}`,
   }));
-
+  console.log(chartData);
   return (
     <div className="chartAll">
       <VictoryChart
@@ -99,7 +99,7 @@ function ChartsAll() {
             },
           },
         ]}
-        containerComponent={<VictoryContainer responsive="false" />}
+        containerComponent={<VictoryContainer responsive={true} />}
       >
         <VictoryLegend
           name="legend"
@@ -146,9 +146,12 @@ function ChartsAll() {
 
         <VictoryGroup offset={10}>
           <VictoryBar
+            labels={({ datum }) =>
+              `Assignment: ${datum.assignment}, Fun: ${datum.fun}`
+            }
             id={1}
             name={"bar1"}
-            labelComponent={<VictoryTooltip />}
+            labelComponent={<VictoryTooltip dy={0} centerOffset={{ x: 25 }} />}
             style={{ data: { fill: "#90A4AE" } }}
             data={chartData}
             x="assignment"
@@ -156,9 +159,12 @@ function ChartsAll() {
             barWidth={8}
           />
           <VictoryBar
+            labels={({ datum }) =>
+              `Assignment: ${datum.assignment}, Difficulty: ${datum.difficulty}`
+            }
             id={2}
             name={"bar2"}
-            labelComponent={<VictoryTooltip />}
+            labelComponent={<VictoryTooltip dy={0} centerOffset={{ x: 25 }} />}
             style={{ data: { fill: "#455A64" } }}
             data={chartData}
             x="assignment"

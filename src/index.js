@@ -8,6 +8,7 @@ import StudentsNav from "../src/nav_components/nav_students";
 import AssignmentsNav from "../src/nav_components/nav_assignments";
 import Student from "./components/singleStudent";
 import Assignment from "./components/singleAssignment";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
