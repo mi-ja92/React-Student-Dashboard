@@ -123,7 +123,7 @@ class AssignmentChart extends React.Component {
                   }
                   return `Difficulty Rating:${datum.difficulty}`;
                 }}
-                labelComponent={<VictoryTooltip />}
+                labelComponent={<VictoryTooltip center dx={25} />}
                 style={{ data: { fill: "#90A4AE" } }}
                 barWidth={50}
                 data={this.state.assignmentData}
@@ -152,7 +152,7 @@ class AssignmentChart extends React.Component {
                 x={"name"}
                 y={"fun"}
                 barRatio={0.1}
-                labelComponent={<VictoryTooltip center />}
+                labelComponent={<VictoryTooltip center dx={25} />}
               />
             ) : null}
           </VictoryGroup>

@@ -21,7 +21,7 @@ import { Link, Outlet } from "react-router-dom";
 const Navbar = () => {
   return (
     <CDBSidebar Open maxWidth="350px">
-      <CDBSidebarHeader iconSize="md" prefix={<i className="fa fa-bars" />}>
+      <CDBSidebarHeader iconSize="large" prefix={<i className="fa fa-bars" />}>
         Student Dashboard
       </CDBSidebarHeader>
       <CDBSidebarContent>
