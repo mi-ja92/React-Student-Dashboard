@@ -151,7 +151,7 @@ function ChartsAll() {
             }
             id={1}
             name={"bar1"}
-            labelComponent={<VictoryTooltip dy={0} centerOffset={{ x: 25 }} />}
+            labelComponent={<VictoryTooltip dy={0} />}
             style={{ data: { fill: "#90A4AE" } }}
             data={chartData}
             x="assignment"
@@ -164,7 +164,7 @@ function ChartsAll() {
             }
             id={2}
             name={"bar2"}
-            labelComponent={<VictoryTooltip dy={0} centerOffset={{ x: 25 }} />}
+            labelComponent={<VictoryTooltip dy={0} />}
             style={{ data: { fill: "#455A64" } }}
             data={chartData}
             x="assignment"
