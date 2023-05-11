@@ -46,18 +46,7 @@ function StudentsNav() {
                 <p>Dashboard</p>{" "}
               </Link>{" "}
             </div>
-
-            <br />
-
-            <div>
-              <Link className="gupicss" to="/Assignments/SCRUM">
-                <Collection className="sidebarbtn" />
-                <p>Assignments</p>{" "}
-              </Link>
-            </div>
-
-            <br />
-
+        
             <div>
               <Link className="gupicss" to="/Students/Evelyn">
                 {" "}
@@ -75,6 +64,16 @@ function StudentsNav() {
                 {student.name}
               </Link>
             ))}
+                       <br />
+            
+                       <div>
+              <Link className="gupicss" to="/Assignments/SCRUM">
+                <Collection className="sidebarbtn" />
+                <p>Assignments</p>{" "}
+              </Link>
+            </div>
+            
+            
           </CDBSidebarMenu>
         </CDBSidebarContent>
         <CDBSidebarFooter style={{ textAlign: "center" }}>
