@@ -48,17 +48,7 @@ function StudentsNav() {
             </div>
 
             <br />
-
-            <div>
-              <Link className="gupicss" to="/Assignments/SCRUM">
-                <Collection className="sidebarbtn" />
-                <p>Assignments</p>{" "}
-              </Link>
-            </div>
-
-            <br />
-
-            <div>
+ <div>
               <Link className="gupicss" to="/Students/Evelyn">
                 {" "}
                 <Person className="sidebarbtn" />
@@ -74,6 +64,16 @@ function StudentsNav() {
               >
                 {student.name}
               </Link>
+            <div>
+              <Link className="gupicss" to="/Assignments/SCRUM">
+                <Collection className="sidebarbtn" />
+                <p>Assignments</p>{" "}
+              </Link>
+            </div>
+
+            <br />
+
+           
             ))}
           </CDBSidebarMenu>
         </CDBSidebarContent>
